@@ -22,9 +22,9 @@ const questions = [
         question: 'Which flies a green, white, and orange (in that order) tricolor flag? ',
         choice1: 'Ireland', 
         choice2: 'Ivory Coast', 
-        choice3: 'Iraly', 
+        choice3: 'Italy', 
         choice4: 'Seychelles',
-        answer: 3
+        answer: 1
     },
     {
         question: 'What company makes the Xperia model of smartphone?',
@@ -102,7 +102,7 @@ const questions = [
         question: 'What spirit is used in making a Tom Collins?',   
         choice1: 'Whiskey',
         choice2: 'Vodka', 
-        choice3: 'Rumn',
+        choice3: 'Rum',
         choice4: 'Gin', 
         answer: 4
     },
@@ -177,6 +177,7 @@ function startGame() {
 
 function getNewQuestion() {
     if(availableQuestions.length === 0 || questionCounter >= maxQuestions) {
+        localStorage.setItem('mostRecentScore', score)
         //goes to end screen if all questions answered before timer runs out
         return window.location.assign('/end.html')
     }
