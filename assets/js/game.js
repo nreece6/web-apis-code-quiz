@@ -1,5 +1,3 @@
-console.log("hello, World")
-
 const question = document.getElementById('question')
 const choices = Array.from(document.getElementsByClassName('choice-text'))
 
@@ -64,11 +62,12 @@ const questions = [
         choice2: 'Karl Benz', 
         choice3: 'Henry M. Leland', 
         choice4: 'Thomas Edison', 
+        answer: 2
     },
     {
         question: 'If you were looking at Iguazu Falls, on what continent would you be?',
         choice1: 'Asia', 
-        choice2: 'Sout America', 
+        choice2: 'South America', 
         choice3: 'Africa', 
         choice4: 'Europe',
         answer: 2
@@ -165,24 +164,22 @@ const questions = [
 
   // game rules
 const correctPoints = 1
-const maxQuestions = 15
+const maxQuestions = 19
 
 function startGame() {
     questionCounter = 0
     score = 0
     availableQuestions = [...questions]
     getNewQuestion()
-    console.log(availableQuestions)
 }
 
 function getNewQuestion() {
     if(availableQuestions.length === 0 || questionCounter <= maxQuestions) {
         //goes to end screen if all questions answered before timer runs out
-        return window.location.assign('/end.html')
+        //return window.location.assign('/end.html')
     }
     questionCounter++
     const questionIndex = Math.floor(Math.random() * availableQuestions.length)
-    console.log(questionIndex)
     currentQuestion = availableQuestions[questionIndex]
     question.innerText=currentQuestion.question
 
@@ -199,11 +196,22 @@ function getNewQuestion() {
 choices.forEach((choice) => {
     choice.addEventListener('click', e => {
         if(!acceptingAnswer) return
+
         acceptingAnswer = false
         const selectedChoice = e.target
-        const selectedAnswer = selectedChoice.dataset[number]
-        console.log(selectedAnswer)
+        const selectedAnswer = selectedChoice.dataset['number']
+
+        let classToApply = 'incorrect'
+        if (selectedAnswer == currentQuestion.answer) {
+            classToApply = 'correct'
+        }
+
+       selectedChoice.parentElement.classList.add(classToApply)
+       setTimeout( () => {
+        selectedChoice.parentElement.classList.remove(classToApply)
         getNewQuestion()
+       }, 1000)
+      
     })
 })
 
