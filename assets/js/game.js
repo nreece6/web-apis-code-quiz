@@ -198,13 +198,13 @@ function startTimer() {
 
 function getNewQuestion() {
     if(availableQuestions.length === 0 || questionCounter >= maxQuestions) {
-        localStorage.setItem('mostRecentScore', score)
+        
         //goes to end screen if all questions answered before timer runs out
         return window.location.assign('/end.html')
     }
    
 
-
+    
     const questionIndex = Math.floor(Math.random() * availableQuestions.length)
     currentQuestion = availableQuestions[questionIndex]
     question.innerText=currentQuestion.question
@@ -213,7 +213,7 @@ function getNewQuestion() {
         const number = choice.dataset['number']
         choice.innerHTML = currentQuestion['choice' + number]
     });
-
+    // removes answered question from array so it can't be used again
     availableQuestions.splice(questionIndex, 1)
 
     acceptingAnswer = true
@@ -248,6 +248,10 @@ choices.forEach((choice) => {
 function incrementScore (num) {
     score += num
     scoreText.innerText = score
+    localStorage.setItem('mostRecentScore', score)
 }
 
 startGame()
+
+var currentHighScore = localStorage.getItem('mostRecentScore')
+console.log(currentHighScore)
