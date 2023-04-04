@@ -15,7 +15,9 @@ N/A
 
 ## Usage
 
-Navigate to https://nreece6.github.io/web-apis-code-quiz/ to use this application.
+Navigate to https://web-apis-code-quiz-3zugu2bwh-nreece6.vercel.app/ to use this application.
+
+GitHub pages did not play nicely with my multi-html file format.
 
 Once you have navigated to the site, you will be greeted with a landing page prompting you to start the quiz or view the high score. Clicking the "Start Quiz" button will bring you to the game.html file where the game is played. Here you will be greeted with a question and possible answers. Clicking on your first answer begins the game, which initiates a timer. Answering questions correctly increases your score. 
 
