@@ -1,6 +1,7 @@
 const question = document.getElementById('question')
 const choices = Array.from(document.getElementsByClassName('choice-text'))
 const questionCounterText = document.getElementById('question-counter')
+const timerElement = document.getElementById('timer-counter')
 const scoreText = document.getElementById('score')
 
 let currentQuestion = ''
@@ -8,6 +9,8 @@ let acceptingAnswer = false
 let score = 0
 let questionCounter = 0
 let availableQuestions = []
+let timer
+let timerCount 
 
 const questions = [
     {
@@ -169,11 +172,29 @@ const correctPoints = 1
 const maxQuestions = 19
 
 function startGame() {
+    timerCount = 20
     questionCounter = 0
     score = 0
     availableQuestions = [...questions]
     getNewQuestion()
+    startTimer()
 }
+
+function startTimer() {
+    timer = setInterval(function() {
+        timerCount--
+        timerElement.textContent = timerCount
+        console.log(timerCount)
+        if (timerCount === 0) {
+            //clear timer and go to end screen when timer hits 0
+            clearInterval(timer)
+            return window.location.assign('/end.html')
+        }
+    }, 1000)
+}
+
+
+
 
 function getNewQuestion() {
     if(availableQuestions.length === 0 || questionCounter >= maxQuestions) {
@@ -181,8 +202,7 @@ function getNewQuestion() {
         //goes to end screen if all questions answered before timer runs out
         return window.location.assign('/end.html')
     }
-    questionCounter++
-    questionCounterText.innerText = questionCounter + '/' + maxQuestions
+   
 
 
     const questionIndex = Math.floor(Math.random() * availableQuestions.length)
